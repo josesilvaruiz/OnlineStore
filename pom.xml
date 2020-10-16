@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.3.4.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.OnlineStore</groupId>
 	<artifactId>OnlineStore</artifactId>
@@ -19,19 +19,28 @@
 	</properties>
 
 	<dependencies>
-	<dependency>
-    <groupId>org.thymeleaf.extras</groupId>
-    <artifactId>thymeleaf-extras-springsecurity5</artifactId>
-	</dependency>
-	<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-security</artifactId>
-</dependency>
+
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-			<dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
@@ -63,20 +72,24 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-    <groupId>org.springframework.data</groupId>
-    <artifactId>spring-data-commons</artifactId>
-    </dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-commons</artifactId>
+		</dependency>
 
 		<dependency>
-    <groupId>org.hibernate</groupId>
-    <artifactId>hibernate-core</artifactId>
-    </dependency>
-	<dependency>
-	    <groupId>org.hibernate</groupId>
-	    <artifactId>hibernate-validator</artifactId>
-	    <version>6.1.6.Final</version>
-	</dependency>
-    
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.1.6.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>28.1-jre</version>
+		</dependency>
 	</dependencies>
 
 	<build>

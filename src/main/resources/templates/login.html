@@ -1,30 +1,54 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head th:insert="fragments/confighead">
 <title>login</title>
 </head>
-<body>
-	<div th:insert="fragments/menu_header"></div>
-	<div class="container">
-		<form th:action="@{/login}" method="post">
 
-			<div class="form-group">
-				<label for="email">Email:</label> <input 
-					class="form-control"  name="username" autofocus required>
+<body>
+
+	<div th:insert="fragments/menu_header"></div>
+
+	<br><br><br>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-4">
+				<h1>Log in</h1>
+				<form th:action="@{/login}" method="post" action="">
+					<div th:if="${param.error}">
+						<div class="alert alert-danger">Invalid email or password.</div>
+					</div>
+					<div th:if="${param.logout}">
+						<div class="alert alert-info">You have been logged out.</div>
+					</div>
+					<div class="form-group">
+						<label for="username">Email</label> <input type="text"
+							id="username" name="username" class="form-control"
+							autofocus="autofocus" placeholder="Email" />
+					</div>
+					<div class="form-group">
+						<label for="password">Password</label> <input type="password"
+							id="password" name="password" class="form-control"
+							placeholder="Password" />
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-6 col-sm-offset-3">
+								<input type="submit" name="login-submit" id="login-submit"
+									class="form-control btn btn-primary" value="Log In" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<span>Are you new here? <a href="/"
+							th:href="@{/registration}">Sing up here</a></span>
+					</div>
+				</form>
 			</div>
-			<div class="form-group">
-				<label for="pwd">Password:</label> <input name="password" type="password"
-					class="form-control" id="pwd" required>
-			</div>
-			<button class="btn btn-danger" type="submit">Sing in</button>
-			
-		</form>
+		</div>
 	</div>
 
 	<div th:insert="fragments/footer"></div>
-
-
-
-	<!-- JS, Popper.js, and jQuery -->
 </body>
+
 </html>

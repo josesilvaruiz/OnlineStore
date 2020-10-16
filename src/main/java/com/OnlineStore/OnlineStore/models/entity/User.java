@@ -1,108 +1,87 @@
 package com.OnlineStore.OnlineStore.models.entity;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
+import javax.persistence.*;
+import java.util.Collection;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.PrePersist;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 @Entity
-@Table(name="users")
-public class User implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+public class User {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
-	@Column(length=20, unique=true)
-	private String email;
-	@Column(length=80)
-	private String password;
-	
-	private String name;
-	
-	private String surname;
-	
-	private String address;
-	
-	private Boolean enabled;
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="user_id")
-	private List<Role> role;
-	
-	public List<Role> getRole() {
-		return role;
-	}
-	public void setRole(List<Role> role) {
-		this.role = role;
-	}
-	@Temporal(TemporalType.DATE)
-	private Date createdAt;
-	
-	@PrePersist
-	public void prePersist() {
-		createdAt = new Date();
-	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getSurname() {
-		return surname;
-	}
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-	public Date getCreatedAt() {
-		return createdAt;
-	}
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public Boolean getEnabled() {
-		return enabled;
-	}
-	public void setEnabled(Boolean enabled) {
-		this.enabled = enabled;
-	}
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "users_roles",
+        joinColumns = @JoinColumn(
+            name = "user_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(
+            name = "role_id", referencedColumnName = "id"))
+    private Collection < Role > roles;
+
+    public User() {}
+
+    public User(String firstName, String lastName, String email, String password, Collection < Role > roles) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Collection < Role > getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection < Role > roles) {
+        this.roles = roles;
+    }
+
+   
 }
-	

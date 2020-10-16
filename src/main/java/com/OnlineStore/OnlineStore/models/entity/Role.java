@@ -1,34 +1,38 @@
 package com.OnlineStore.OnlineStore.models.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
-@Table(name = "authorities", uniqueConstraints= {@UniqueConstraint(columnNames={"user_id", "authority"})})
-public class Role implements Serializable {
+public class Role {
 
-	private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String name;
 
-	private Long id;
-	
-	private String authority;
+    public Role() {}
 
-	public Long getId() {
-		return id;
-	}
+    public Role(String name) {
+        this.name = name;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getAuthority() {
-		return authority;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setAuthority(String authority) {
-		this.authority = authority;
-	}
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }

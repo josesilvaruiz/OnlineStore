@@ -22,6 +22,10 @@ public class Product implements Serializable {
 
 	private double price;
 	
+	private String barcode;
+	
+	private int stock;
+	
 	public Long getId() {
 		return id;
 	}
@@ -44,6 +48,22 @@ public class Product implements Serializable {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+
+	public String getBarcode() {
+		return barcode;
+	}
+
+	public void setBarcode(String barcode) {
+		this.barcode = barcode;
 	}
 
 

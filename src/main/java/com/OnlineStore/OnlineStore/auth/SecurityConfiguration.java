@@ -25,8 +25,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
             .antMatchers(
-            		"/",
+        		"/",
+        		"/addtocart",
                 "/registration**",
+                "/cart**",
                 "/product/**",
                 "/update/**",
                 "/products/**",

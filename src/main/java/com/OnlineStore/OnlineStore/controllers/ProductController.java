@@ -66,7 +66,7 @@ public class ProductController {
 	}
 	@GetMapping("/delete/{id}")
 	public String deleteUser(@PathVariable("id") long id, Model model) {
-		Product product = productService.findById(id);	     
+		productService.findById(id);	     
 		productService.delete(id);	
 	    return "redirect:/product";
 	}

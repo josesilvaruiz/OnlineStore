@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="fragments/confighead">
+<title>login</title>
+</head>
+
+<body>
+
+	<div th:insert="fragments/menu_header"></div>
+	
+<div class="container">	      
+        
+        <h1 class="text-secondary border border-success border-top-0 border-left-0 border-right-0">
+         List Product</h1>
+		<p><a th:href="@{/productform}" class="btn btn-success btn-xs">Create product</a></p>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>name</th>
+					<th>quantity</th>
+					<th>price</th>				
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="cart : ${carts}">
+					<td th:text="${cart.product.name}"></td>
+					<td th:text="${cart.quantity}"></td>
+					<td th:text="${cart.calculateTotal()}"></td>					
+					
+				</tr>
+			</tbody>
+			<tfoot>
+			<tr><td colSpan="3" th:text="${total}"></td></tr>
+			</tfoot>
+		</table>
+    </div>
+                                
+	<div th:insert="fragments/footer"></div>
+</body>
+
+</html>

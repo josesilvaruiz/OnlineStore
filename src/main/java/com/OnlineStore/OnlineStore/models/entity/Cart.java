@@ -1,33 +1,57 @@
 package com.OnlineStore.OnlineStore.models.entity;
 
-import java.util.Collection;
+import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+
+import javax.persistence.ManyToOne;
 
 @Entity
-public class Cart {
+public class Cart implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-        name = "products_carts",
-        joinColumns = @JoinColumn(
-            name = "product_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(
-            name = "cart_id", referencedColumnName = "id"))
-    private Collection < Product > productlist;
 	
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+    private Product product;
 	
+	private Integer quantity;
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+	
+	public Double calculateTotal() {
+		return product.getPrice()*quantity;
+	}
 }
 	

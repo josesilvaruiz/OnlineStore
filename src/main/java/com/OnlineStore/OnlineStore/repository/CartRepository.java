@@ -2,8 +2,9 @@ package com.OnlineStore.OnlineStore.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.OnlineStore.OnlineStore.models.entity.Product;
+import com.OnlineStore.OnlineStore.models.entity.Cart;
 
-public interface CartRepository extends CrudRepository<Product, Long>{
+
+public interface CartRepository extends CrudRepository<Cart, Long>{
 
 }

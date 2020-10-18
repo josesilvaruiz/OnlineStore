@@ -18,25 +18,21 @@ public class ProductServiceImpl implements IProductService{
 	@Override
 	@Transactional
 	public List<Product> findAll () {
-		// TODO Auto-generated method stub
 		return (List<Product>) productRepository.findAll();
 	}
 
 	@Override
 	public Product save(Product product) {
-		// TODO Auto-generated method stub
 		return productRepository.save(product);
 	}
 
 	@Override
 	public Product findById(Long id) {
-		// TODO Auto-generated method stub
 		return productRepository.findById(id).orElse(null);
 	}
 
 	@Override
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
 		productRepository.deleteById(id);
 	}
 }

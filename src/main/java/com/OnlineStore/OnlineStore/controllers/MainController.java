@@ -4,7 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.OnlineStore.OnlineStore.models.entity.Product;
+
+
 
 @Controller
 public class MainController {
@@ -22,11 +23,5 @@ public class MainController {
     @GetMapping("/user")
     public String user() {
         return "user";
-    }
-    @GetMapping("/product")
-    public String product(Model model) {
-    	Product product = new Product();
-    	model.addAttribute("product", product);
-        return "product";
     }
 }

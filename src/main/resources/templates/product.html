@@ -8,24 +8,39 @@
 <body>
 
 	<div th:insert="fragments/menu_header"></div>
+	
 <div class="container">	      
-     <h1>Add Product</h1>         
-     <form th:action="@{/products}" th:object="${product}" method="post">
-     
-    <label >Name: </label>   
-    <input type="text" class="form-control" th:field="*{name}" placeholder="Product name">
-    <label >Price: </label>
-    <input type="number" class="form-control" th:field="*{price}" placeholder="Product price" >
-    <label >Barcode: </label>
-    <input type="text" class="form-control" th:field="*{barcode}" placeholder="Barcode" >
-    <label >Stock: </label>
-    <input type="number" class="form-control" th:field="*{stock}" placeholder="Stock" >
-    <br>
-    <div class="form-group">
-                    <button type="submit" class="btn btn-success">Add new article </button>
-                </div>
-    </form>                      
-  </div>
+        
+        <h1 class="text-secondary border border-success border-top-0 border-left-0 border-right-0">
+         List Product</h1>
+		<p><a th:href="@{/productform}" class="btn btn-success btn-xs">Create product</a></p>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>name</th>
+					<th>price</th>				
+					<th>barcode</th>
+					<th>stock</th>
+					<th>edit</th>
+					<th>delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="product : ${products}">
+					<td th:text="${product.id}"></td>
+					<td th:text="${product.name}"></td>
+					<td th:text="${product.price}"></td>
+					<td th:text="${product.barcode}"></td>
+					<td th:text="${product.stock}"></td>
+			  		<td><a class="btn btn-primary btn-xs" th:href="@{/productform/} + ${product.id} "th:text="'edit'"></a></td>
+					<td><a class="btn btn-danger btn-xs" th:href="@{/delete/} + ${product.id}" th:text="'delete'" onclick="return confirm('Are you sure you want to delete it?');"></a></td>
+					
+				</tr>
+			</tbody>
+
+		</table>
+    </div>
                                 
 	<div th:insert="fragments/footer"></div>
 </body>

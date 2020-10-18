@@ -9,12 +9,34 @@
 
 <div th:insert="fragments/menu_header"></div>
 
-<br>
-<br>
-<br>
+<div class="container">	      
+        
+        <h1 class="text-secondary border border-success border-top-0 border-left-0 border-right-0">
+         List Product</h1>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>name</th>
+					<th>price</th>				
+					<th>barcode</th>
+					<th>stock</th>
 
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="product : ${products}">
+					<td th:text="${product.id}"></td>
+					<td th:text="${product.name}"></td>
+					<td th:text="${product.price}"></td>
+					<td th:text="${product.stock}"></td>
+			  		
+					
+				</tr>
+			</tbody>
 
-<img th:src="@{images/logo.png}" width="136" height="136">
+		</table>
+    </div>
 
 <body>
 

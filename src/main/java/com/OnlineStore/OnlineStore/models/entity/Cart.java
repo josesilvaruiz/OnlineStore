@@ -1,14 +1,17 @@
 package com.OnlineStore.OnlineStore.models.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Cart implements Serializable {
@@ -18,17 +21,24 @@ public class Cart implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-	
-	
 
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
+
+	
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cart_id")
+	private List<CartItem> cartItem;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	private User user;
+	
+	
+	public List<CartItem> getCartItem() {
+		return cartItem;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-    private Product product;
-	
-	private Integer quantity;
+	public void setCartItem(List<CartItem> cartItem) {
+		this.cartItem = cartItem;
+	}
 	
 	public Long getId() {
 		return id;
@@ -38,20 +48,8 @@ public class Cart implements Serializable {
 		this.id = id;
 	}
 
-	public Product getProduct() {
-		return product;
-	}
 
-	public void setProduct(Product product) {
-		this.product = product;
-	}
 
-	public int getQuantity() {
-		return quantity;
-	}
-	
-	public Double calculateTotal() {
-		return product.getPrice()*quantity;
-	}
+
 }
 	

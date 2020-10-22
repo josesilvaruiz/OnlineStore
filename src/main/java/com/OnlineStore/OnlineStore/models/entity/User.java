@@ -1,6 +1,7 @@
 package com.OnlineStore.OnlineStore.models.entity;
 
 import javax.persistence.*;
+
 import java.util.Collection;
 
 @Entity
@@ -24,7 +25,8 @@ public class User {
         inverseJoinColumns = @JoinColumn(
             name = "role_id", referencedColumnName = "id"))
     private Collection < Role > roles;
-
+    
+    
     public User() {}
 
     public User(String firstName, String lastName, String email, String password, Collection < Role > roles) {

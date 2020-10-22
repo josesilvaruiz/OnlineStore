@@ -9,46 +9,50 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.OnlineStore.OnlineStore.models.entity.Cart;
 import com.OnlineStore.OnlineStore.models.entity.CartItem;
+import com.OnlineStore.OnlineStore.models.entity.CartItemDto;
 import com.OnlineStore.OnlineStore.models.entity.Product;
-import com.OnlineStore.OnlineStore.services.ICartService;
+import com.OnlineStore.OnlineStore.services.ICartItemService;
+
 import com.OnlineStore.OnlineStore.services.IProductService;
 
 @Controller
 public class CartController {
 	
 	@Autowired
-	private ICartService cartService;
+	private ICartItemService cartItemService;
 	
 	@Autowired
 	private IProductService productService;
 
 	@GetMapping("/addtocart")
 	public String AddToCart(Model model) {
+		
     	model.addAttribute("products", productService.findAll());
-    	model.addAttribute("cartItem", new CartItem());
+    	model.addAttribute("dtoCartItem", new CartItemDto());
         return "addtocart";
     }
 	@GetMapping("/cart")
 	public String Cart(Model model) {
-    	List<Cart> carts = cartService.findAll();
-    	Double total = 0.0;
-    	for (Cart cart: carts) {
-    		total += cart.getQuantity() * cart.getProduct().getPrice();
-    	}
-		model.addAttribute("carts", carts);
-		model.addAttribute("total", total);
+    	List<CartItem> cart = cartItemService.findAll();
+//    	float total = 0.0f;
+//    	for (Cart cart: carts) {
+//    		total += cart.getQuantity() * cart.getProduct().getPrice();
+//    	}
+//		model.addAttribute("carts", carts);
+//		model.addAttribute("total", total);
     	
         return "cart";
     }
 	@PostMapping("/cart")
-	public String save(@ModelAttribute("cartItem")CartItem cartItem) {
-		Product p = productService.findById(cartItem.getProductId());	
-		Cart c = new Cart();
-		c.setQuantity(cartItem.getQuantity());
-		c.setProduct(p);
-		cartService.save(c);
+	public String save(@ModelAttribute("cartItemDto")CartItemDto cartItemDto ) {
+		
+		Product p = productService.findById(cartItemDto.getProductId());
+		CartItem cartItem = new CartItem();
+		cartItem.setProduct(p);
+		cartItem.setQuantity(cartItemDto.getQuantity());
+		cartItemService.save(cartItem);
 		return "redirect:/addtocart";}
 	}
+
 

@@ -30,7 +30,7 @@
 
 
 				<tr th:each="product : ${products}">
-					<form th:action="@{/cart}" th:object="${cartItemDto}" method="post">
+					<form th:action="@{/addtocart}" th:object="${cartItemDto}" method="post">
 					<td id="name" th:text="${product.id}"></td>
 					<input type="hidden" id="productId" name="productId" th:value="${product.id}" >
 					<td id="name" th:text="${product.name}"></td>

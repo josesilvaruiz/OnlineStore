@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class CartItem implements Serializable {
+public class OrderItem implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -22,8 +22,6 @@ public class CartItem implements Serializable {
 	@JoinColumn(name = "product_id")
 	private Product product;
 
-	
-	
 	private Integer quantity;
 		
 	public Long getId() {
@@ -54,5 +52,4 @@ public class CartItem implements Serializable {
 	public Double calculateRow() {
 		return product.getPrice()*quantity;
 	}
-
 }

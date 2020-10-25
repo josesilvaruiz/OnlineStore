@@ -11,4 +11,6 @@ public interface IUserService extends UserDetailsService {
     User findByEmail(String email);
 
     User save(UserRegistrationDto registration);
+    
+    User getAuthUser();
 }

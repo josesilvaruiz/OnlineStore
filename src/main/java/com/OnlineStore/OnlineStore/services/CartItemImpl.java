@@ -19,7 +19,6 @@ public class CartItemImpl implements ICartItemService{
 	
 
 	public CartItem save(CartItem cartItem) {
-		// TODO Auto-generated method stub
 		return cartItemRepository.save(cartItem);
 	}
 
@@ -29,6 +28,5 @@ public class CartItemImpl implements ICartItemService{
 
 
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
 	}
 }

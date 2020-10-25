@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="fragments/confighead">
+<title>home</title>
+</head>
+
+<body>
+
+<div th:insert="fragments/menu_header"></div>
+
+<div class="container">	      
+        
+        <h1 class="text-secondary border border-success border-top-0 border-left-0 border-right-0">
+         Cart Products</h1>
+		<p><a th:href="@{/addtocart}" class="btn btn-success btn-xs">Add to cart</a></p>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					
+					<th>name</th>
+					<th>quantity</th>			
+					<th>price</th>
+					<th>add</th>
+					<th>remove</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="cartitem : ${cartitems}">
+					<td th:text="${cartitem.product.name}"></td>
+					<td th:text="${cartitem.quantity}"></td>	
+					<td th:text="${cartitem.calculateRow()}"></td>
+					<td> <button class="btn-primary">+</button></td>
+					<td> <button class="btn-danger">-</button></td>		
+				</tr> 
+			</tbody>
+			<tfoot>
+			<tr>
+			<td colSpan="4" th:text="|Total price: ${total} $|"> </td>
+			<td><button onclick="doAjaxPost();" class="btn btn-success">Checkout</button></td>
+			</tr>
+			</tfoot>
+		</table>
+    </div>
+                                
+	<div th:insert="fragments/footer"></div>
+
+	                               
+	</body>
+</html>

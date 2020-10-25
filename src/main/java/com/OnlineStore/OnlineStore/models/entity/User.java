@@ -8,6 +8,8 @@ import java.util.Collection;
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User {
 
+	public User() {}
+	
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -26,8 +28,16 @@ public class User {
             name = "role_id", referencedColumnName = "id"))
     private Collection < Role > roles;
     
+    @OneToOne(mappedBy = "user")
+	private Cart cart;
     
-    public User() {}
+    public Cart getCart() {
+		return cart;
+	}
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
 
     public User(String firstName, String lastName, String email, String password, Collection < Role > roles) {
         this.firstName = firstName;

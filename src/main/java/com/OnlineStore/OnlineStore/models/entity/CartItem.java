@@ -51,7 +51,7 @@ public class CartItem implements Serializable {
 		this.quantity = quantity;
 	}
 
-	public Double calculateRow() {
+	public float calculateRow() {
 		return product.getPrice()*quantity;
 	}
 

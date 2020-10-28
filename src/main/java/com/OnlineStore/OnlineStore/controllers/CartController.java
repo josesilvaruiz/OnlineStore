@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.OnlineStore.OnlineStore.models.entity.Cart;
 import com.OnlineStore.OnlineStore.models.entity.CartItem;
 import com.OnlineStore.OnlineStore.models.entity.CartItemDto;
+import com.OnlineStore.OnlineStore.models.entity.Order;
 import com.OnlineStore.OnlineStore.models.entity.OrderItem;
 import com.OnlineStore.OnlineStore.models.entity.Product;
 import com.OnlineStore.OnlineStore.models.entity.User;
-import com.OnlineStore.OnlineStore.services.ICartItemService;
 import com.OnlineStore.OnlineStore.services.ICartService;
 import com.OnlineStore.OnlineStore.services.IOrderItemService;
+import com.OnlineStore.OnlineStore.services.IOrderService;
 import com.OnlineStore.OnlineStore.services.IProductService;
 import com.OnlineStore.OnlineStore.services.IUserService;
 
@@ -27,14 +28,13 @@ public class CartController {
 	private ICartService cartService;
 
 	@Autowired
-	private ICartItemService cartItemService;
-
-	@Autowired
 	private IProductService productService;
 
 	@Autowired
 	private IUserService userService;
 
+	@Autowired
+	private IOrderService orderService;
 	@Autowired
 	private IOrderItemService orderItemService;
 
@@ -49,32 +49,49 @@ public class CartController {
 // TODO USAR HASHMAP EN VEZ DE LIST
 	@GetMapping("/cartview")
 	public String Cart(Model model, HttpServletRequest request) {
-		model.addAttribute("cartItem", new CartItem());
-		model.addAttribute("cartuser", userService.getAuthUser());
-		User user = userService.getAuthUser();
-		List<CartItem> cartitems = user.getCart().getCartItem();
+		try {
+			model.addAttribute("cartItem", new CartItem());
+			model.addAttribute("cartuser", userService.getAuthUser());
+			User user = userService.getAuthUser();
+			List<CartItem> cartitems = user.getCart().getCartItem();
 
-		float total = 0.0f;
-		for (int i = 0; i < cartitems.size(); i++) {
+			float total = 0.0f;
+			for (int i = 0; i < cartitems.size(); i++) {
 
-			total += cartitems.get(i).getQuantity() * cartitems.get(i).getProduct().getPrice();
+				total += cartitems.get(i).getQuantity() * cartitems.get(i).getProduct().getPrice();
+			}
+			model.addAttribute("total", total);
+			model.addAttribute("cartitems", cartitems);
+			return "cartview";
+		} catch (Exception e) {
+		    System.out.println ("El error es: " + e.getMessage());
+		    e.printStackTrace();
 		}
-		model.addAttribute("total", total);
-		model.addAttribute("cartitems", cartitems);
-		return "cartview";
+		return null;
+		
 	}
 
 	@PostMapping("/cartcheckout")
-	public String cartcheckout(@ModelAttribute("orderItem") OrderItem orderItem) {
+	public String cartcheckout() {
 		User user = userService.getAuthUser();
 		List<CartItem> cartitems = user.getCart().getCartItem();
+		Order order = new Order();
+		order.setUser(user);
+		float total = 0.0f;
 		for (int i = 0; i < cartitems.size(); i++) {
+			OrderItem orderItem = new OrderItem();
 			orderItem.setProduct(cartitems.get(i).getProduct());
 			orderItem.setQuantity(cartitems.get(i).getQuantity());
-			orderItemService.save(orderItem);
+			
+			total += cartitems.get(i).calculateRow();	
+			order.getOrderItem().add(orderItem);
+			order.setTotal(total);
 		}
+		
+		
+		orderService.save(order);
 		cartService.delete(user.getCart().getId());
-		return "redirect:/cartview";
+		return "redirect:/addtocart";
 
 	}
 

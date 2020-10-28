@@ -59,6 +59,7 @@ public class UserServiceImpl implements IUserService {
             .collect(Collectors.toList());
     }
 
+
 	public User getAuthUser() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String email = ((UserDetails)principal).getUsername();

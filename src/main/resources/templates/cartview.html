@@ -37,7 +37,15 @@
 			<tfoot>
 			<tr>
 			<td colSpan="4" th:text="|Total price: ${total} $|"> </td>
-			<td><button onclick="doAjaxPost();" class="btn btn-success">Checkout</button></td>
+			
+				<form th:action="@{/cartcheckout}" th:object="${orderItem}" method="post">
+    			<div class="form-group">
+    			<td><button type="submit" class="btn btn-success">Checkout</button></td>
+                    
+                </div>
+      </form> 
+		                    
+			
 			</tr>
 			</tfoot>
 		</table>

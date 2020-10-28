@@ -1,6 +1,6 @@
 package com.OnlineStore.OnlineStore.controllers;
 
-import java.security.Principal;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,11 +24,8 @@ public class MainController {
     }
     
     @GetMapping("/login")
-    public String login (Principal principal) {
-        if (principal != null) {
-        	return "redirect:/";
-        }
-        return "/login";
+    public String login(Model model) {
+        return "login";
     }
     @GetMapping("/user")
     public String user() {

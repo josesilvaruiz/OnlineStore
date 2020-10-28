@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="fragments/confighead">
+<title>orders</title>
+</head>
+
+<body>
+
+	<div th:insert="fragments/menu_header"></div>
+	
+<div class="container">	      
+        
+        <h1 class="text-secondary border border-success border-top-0 border-left-0 border-right-0">
+         Invoice</h1>
+		<table class="table table-striped">
+			<thead>
+			<tr>
+			<td th:text="${order.createAt}"></td>
+			</tr>
+				<tr>
+					
+					<th>orders</th>
+					<th>quantity</th>			
+					<th>price</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="orderitem : ${orderitems}">
+					<td th:text="${orderitem.product.name}"></td>
+					<td th:text="${orderitem.quantity}"></td>	
+					<td th:text="${orderitem.calculateRow()}"></td>	
+				</tr> 
+			</tbody>
+			<tfoot>
+			<tr>
+			<td colSpan="4" th:text="|Total price: ${order.total} $|"> </td>						
+			</tfoot>
+		</table>
+</div>
+                                
+<div th:insert="fragments/footer"></div>	
+</body>
+
+</html>

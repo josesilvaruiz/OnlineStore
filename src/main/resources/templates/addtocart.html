@@ -22,24 +22,21 @@
 					<th>price</th>
 					<th>quantity</th>
 					<th>Total</th>
-
-
 				</tr>
 			</thead>
 			<tbody>
-
-
 				<tr th:each="product : ${products}">
-					<form th:action="@{/addtocart}" th:object="${cartItemDto}" method="post">
-					<td id="name" th:text="${product.id}"></td>
-					<input type="hidden" id="productId" name="productId" th:value="${product.id}" >
-					<td id="name" th:text="${product.name}"></td>
-					<td id="price" th:text="${product.price}"></td>
-					<td><input style="width: 50px;" type="number" id="quantity" th:field="*{quantity}"></td>
+					<form th:action="@{/addtocart}" th:object="${cartItemDto}"
+						method="post">
+						<td id="name" th:text="${product.id}"></td> <input type="hidden"
+							id="productId" name="productId" th:value="${product.id}">
+						<td id="name" th:text="${product.name}"></td>
+						<td id="price" th:text="${product.price}"></td>
+						<td><input style="width: 50px;" type="number" id="quantity"
+							th:field="*{quantity}"></td>
 
-					<td><button type="submit" class="btn btn-success">Add
-							to cart</button></td>
-
+						<td><button type="submit" class="btn btn-success">Add
+								to cart</button></td>
 					</form>
 				</tr>
 

@@ -20,7 +20,7 @@ public class Product implements Serializable {
 	
 	private String name;
 
-	private double price;
+	private float price;
 	
 	private String barcode;
 	
@@ -42,14 +42,6 @@ public class Product implements Serializable {
 		this.name = name;
 	}
 
-	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
-	}
-
 	public int getStock() {
 		return stock;
 	}
@@ -64,6 +56,14 @@ public class Product implements Serializable {
 
 	public void setBarcode(String barcode) {
 		this.barcode = barcode;
+	}
+
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
 	}
 
 

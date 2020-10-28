@@ -3,6 +3,7 @@ package com.OnlineStore.OnlineStore.models.entity;
 import javax.persistence.*;
 
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
@@ -31,7 +32,19 @@ public class User {
     @OneToOne(mappedBy = "user")
 	private Cart cart;
     
-    public Cart getCart() {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Order> order;
+
+
+	public List<Order> getOrder() {
+		return order;
+	}
+
+	public void setOrder(List<Order> order) {
+		this.order = order;
+	}
+
+	public Cart getCart() {
 		return cart;
 	}
 

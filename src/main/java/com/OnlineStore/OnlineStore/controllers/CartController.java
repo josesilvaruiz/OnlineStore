@@ -5,9 +5,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.OnlineStore.OnlineStore.models.entity.Cart;
 import com.OnlineStore.OnlineStore.models.entity.CartItem;
 import com.OnlineStore.OnlineStore.models.entity.CartItemDto;
@@ -38,41 +41,37 @@ public class CartController {
 	@Autowired
 	private IOrderItemService orderItemService;
 
-	@GetMapping("/addtocart")
-	public String AddToCart(Model model, HttpServletRequest request) {
+	@GetMapping("/")
+	public String addtocart(Model model) {
 
 		model.addAttribute("products", productService.findAll());
 		model.addAttribute("cartItemDto", new CartItemDto());
-		return "addtocart";
+		return "/home";
 	}
 
 // TODO USAR HASHMAP EN VEZ DE LIST
 	@GetMapping("/cartview")
-	public String Cart(Model model, HttpServletRequest request) {
-		try {
-			model.addAttribute("cartItem", new CartItem());
-			model.addAttribute("cartuser", userService.getAuthUser());
+	public String Cart(Model model) {	
+		
 			User user = userService.getAuthUser();
-			List<CartItem> cartitems = user.getCart().getCartItem();
-
+			if (userService.getAuthUser().getCart() != null) {
+			List<CartItem> cartitems = user.getCart().getCartItem();					
 			float total = 0.0f;
 			for (int i = 0; i < cartitems.size(); i++) {
-
 				total += cartitems.get(i).getQuantity() * cartitems.get(i).getProduct().getPrice();
-			}
+			}	 
 			model.addAttribute("total", total);
 			model.addAttribute("cartitems", cartitems);
-			return "cartview";
-		} catch (Exception e) {
-		    System.out.println ("El error es: " + e.getMessage());
-		    e.printStackTrace();
-		}
-		return null;
+			}	
+		return "cartview";
+		
+	
 		
 	}
 
 	@PostMapping("/cartcheckout")
 	public String cartcheckout() {
+		
 		User user = userService.getAuthUser();
 		List<CartItem> cartitems = user.getCart().getCartItem();
 		Order order = new Order();
@@ -83,21 +82,24 @@ public class CartController {
 			orderItem.setProduct(cartitems.get(i).getProduct());
 			orderItem.setQuantity(cartitems.get(i).getQuantity());
 			
-			total += cartitems.get(i).calculateRow();	
-			order.getOrderItem().add(orderItem);
+			total += cartitems.get(i).calculateRow();				
 			order.setTotal(total);
+			order.getOrderItem().add(orderItem);
 		}
 		
 		
 		orderService.save(order);
 		cartService.delete(user.getCart().getId());
-		return "redirect:/addtocart";
+		
+		return "redirect:/orders";
 
 	}
 
 	@PostMapping("/addtocart")
-	public String addtocart(@ModelAttribute("cartItemDto") CartItemDto cartItemDto, HttpServletRequest request) {
-
+	public String addtocart(@ModelAttribute("cartItemDto") CartItemDto cartItemDto, HttpServletRequest request, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {			
+	        return "addtocart";  
+       }          
 		Product p = productService.findById(cartItemDto.getProductId());
 		CartItem cartItem = new CartItem();
 		cartItem.setProduct(p);
@@ -131,6 +133,6 @@ public class CartController {
 			}
 			cartService.save(cart);
 		}
-		return "redirect:/addtocart";
+		return "redirect:/?success";
 	}
 }

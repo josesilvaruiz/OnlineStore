@@ -38,7 +38,7 @@ public class OrderController {
 		return  "orders";
 	}
 	 @GetMapping(value = {"/orders/{Id}"})
-	   public String orderdetails (Model model, @PathVariable long Id) {
+	   public String orderDetails (Model model, @PathVariable long Id) {
 
 		 Order order = new Order();
 		 List<OrderItem> orderitems;

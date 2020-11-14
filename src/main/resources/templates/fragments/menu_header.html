@@ -6,14 +6,8 @@
 
   <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item active">
-        <a class="nav-link" href="/productform"> Products Form <span class="sr-only">Products</span></a>
-      </li>
       <li class="nav-item">
-        <a class="nav-link" href="/product">Manage Products</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/addtocart">Buy Products</a>
+        <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/product">Catalog management</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/cartview">Cart</a>

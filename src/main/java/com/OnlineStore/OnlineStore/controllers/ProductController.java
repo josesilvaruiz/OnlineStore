@@ -1,4 +1,4 @@
-package com.OnlineStore.OnlineStore.controllers;
+ package com.OnlineStore.OnlineStore.controllers;
 
 
 
@@ -23,7 +23,7 @@ public class ProductController {
 	
 
    @GetMapping(value = "/product")
-	public String listar(Model model) {
+	public String getproducts(Model model) {
 		model.addAttribute("products", productService.findAll());
 		return "product";
 	}
@@ -41,15 +41,11 @@ public class ProductController {
 
 
    @PostMapping("/productform/{id}")
-   public String updateUser(@PathVariable("id") long id, @Valid Product product, 
-     BindingResult result, Model model) {
-       if (result.hasErrors()) {
-    	   product.setId(id);
-           return "product";
-       }
-           
+   public String updateUser(@PathVariable("id") long id, @Valid @ModelAttribute("product") Product product, BindingResult bindingResult) {
+	   if (bindingResult.hasErrors()) {			
+	        return "productform";  
+       }          
        productService.save(product);
-       model.addAttribute("product", productService.findAll());
        return "redirect:/product";
    }
    
@@ -60,9 +56,13 @@ public class ProductController {
         return "productform";
     }
 	@PostMapping("/products")
-	public String save(@ModelAttribute("productAdd") Product product) {
+	public String save(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult) {
+		 if (bindingResult.hasErrors()) {			
+		        return "productform";
+		    }
 		productService.save(product);
 		return "redirect:/product";
+
 	}
 	@GetMapping("/delete/{id}")
 	public String deleteUser(@PathVariable("id") long id, Model model) {

@@ -12,3 +12,6 @@ footer {
   bottom: 0;
   width: 100%;
 }
+.error-message {
+	color:rgb(255,0,0);
+}

@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Min;
 
 @Entity
 public class OrderItem implements Serializable {
@@ -21,7 +22,7 @@ public class OrderItem implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id")
 	private Product product;
-
+	@Min(value = 1, message = "Must be 0 mín value")
 	private Integer quantity;
 		
 	public Long getId() {

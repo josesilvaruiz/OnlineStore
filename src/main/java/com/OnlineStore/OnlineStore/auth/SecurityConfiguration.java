@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.OnlineStore.OnlineStore.models.entity.Role;
 import com.OnlineStore.OnlineStore.services.IUserService;
 
 
@@ -26,18 +27,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers(
         		"/",
-        		"/addtocart",
                 "/registration**",
-                "/cart**",
-                "/product/**",
-                "/update/**",
-                "/products/**",
-                "/productform/**",
-                "/productupdate/**", 
-                "/delete/**",
                 "/js/**",
                 "/css/**",
                 "/images/**").permitAll()
+            .antMatchers("/addtocart/**").hasRole("USER")
+            .antMatchers("/cartview/**").hasRole("USER")
+            .antMatchers("/orders/**").hasRole("USER")
+            .antMatchers("/productform/**").hasRole("ADMIN") 
+            .antMatchers("/product/**").hasRole("ADMIN") 
             .anyRequest().authenticated()
             .and()
             .formLogin()

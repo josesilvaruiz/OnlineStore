@@ -7,12 +7,48 @@
 
 <body>
 
-<div th:insert="fragments/menu_header"></div>
+	<div th:insert="fragments/menu_header"></div>
 
- 
+	<div class="container" style="margin-bottom: 100px;">
 
-<div th:insert="fragments/footer"></div>
+		<h1
+			class="text-secondary border border-success border-top-0 border-left-0 border-right-0">
+			Buy Products</h1>
+		<div th:if="${param.success}">
+                <div class="alert alert-success">Added to cart successfully</div>
+            </div>
+		<div class="row">
+			<div class="col-lg-3 col-md-3 mb-2" th:each="product : ${products}">
+				<form th:action="@{/addtocart}" th:object="${cartItemDto}"
+					method="post">
+					<div class="card h-100">
+						<a><img class="card-img-top"
+							src="http://placehold.it/700x400" alt=""></a>
+						<div class="card-body">
+							<input type="hidden" id="productId" name="productId"
+								th:value="${product.id}">
+							<h4 class="card-title">
+								<a th:text="${product.name}"></a>
+							</h4>
+							<h5>
+								$<span th:text="${product.price}"></span>
+							</h5>
+							  <div class="form-group" th:classappend="${#fields.hasErrors('quantity')}? 'has-error':''">
+    <input type="number" style="width: 70px; margin-left: 10px;" id="quantity" class="form-control" th:field="*{quantity}" min="1" >
+    <p class="error-message" th:each="error : ${#fields.errors('quantity')}" th:text="${error}">Validation error</p>
+    </div>
+						</div>
+						<div class="card-footer">
+							<button type="submit" class="btn btn-success" >Add to
+								cart</button>
+						</div>
+					</div>
+				</form>
+			</div>
 
+		</div>
+	</div>
+
+	<div th:insert="fragments/footer"></div>
 </body>
-
 </html>

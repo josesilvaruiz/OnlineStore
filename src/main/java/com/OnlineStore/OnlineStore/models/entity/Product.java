@@ -7,6 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name="products")
@@ -16,14 +19,16 @@ public class Product implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
-	
+	private Long id;	
+	@NotEmpty(message = "Empty field")
 	private String name;
-
+	@DecimalMin(value = "0.1", 
+			inclusive = true,
+			message = "Must be  0,1 min value")
 	private float price;
-	
+	@NotEmpty(message = "Empty field")
 	private String barcode;
-	
+	 @Min(value = 1, message = "Must be 1 mín value")
 	private int stock;
 	
 	public Long getId() {

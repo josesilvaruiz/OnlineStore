@@ -13,16 +13,17 @@
         
         <h1 class="text-secondary border border-success border-top-0 border-left-0 border-right-0">
          Cart Products</h1>
-		<p><a th:href="@{/addtocart}" class="btn btn-success btn-xs">Add to cart</a></p>
-		<table class="table table-striped">
+
+        <h4 th:if="${cartitems == null }">Your OnlineStore basket is empty.</h4> 
+		<table class="table table-striped" th:if="${cartitems != null }">
 			<thead>
 				<tr>
 					
-					<th>name</th>
-					<th>quantity</th>			
-					<th>price</th>
-					<th>add</th>
-					<th>remove</th>
+					<th>Name</th>
+					<th>Quantity</th>			
+					<th>Price</th>
+					<th>Add</th>
+					<th>Remove</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -36,7 +37,7 @@
 			</tbody>
 			<tfoot>
 			<tr>
-			<td colSpan="4" th:text="|Total price: ${total} $|"> </td>
+			<td th:if="${total != null }" colSpan="4" th:text="|Total price: ${total} $|"> </td>
 			
 				<form th:action="@{/cartcheckout}" th:object="${orderItem}" method="post">
     			<div class="form-group">
@@ -51,7 +52,7 @@
 		</table>
     </div>
                                 
-	<div th:insert="fragments/footer"></div>
+	<div th:insert="fragments/footer" ></div>
 
 	                               
 	</body>

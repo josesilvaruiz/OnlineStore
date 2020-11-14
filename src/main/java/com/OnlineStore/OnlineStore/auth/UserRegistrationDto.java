@@ -10,27 +10,27 @@ import javax.validation.constraints.NotEmpty;
 })
 public class UserRegistrationDto {
 
-    @NotEmpty
+    @NotEmpty(message = "Empty field")
     private String firstName;
 
-    @NotEmpty
+    @NotEmpty(message = "Empty field")
     private String lastName;
 
-    @NotEmpty
+    @NotEmpty(message = "Empty field")
     private String password;
 
-    @NotEmpty
+    @NotEmpty(message = "Empty field")
     private String confirmPassword;
 
-    @Email
-    @NotEmpty
+    @Email(message = "Invalid email")
+    @NotEmpty(message = "Empty field")
     private String email;
 
-    @Email
-    @NotEmpty
+    @Email(message = "Invalid email")
+    @NotEmpty(message = "Empty field")
     private String confirmEmail;
 
-    @AssertTrue
+    @AssertTrue(message = "Must be agree with terms and conditions")
     private Boolean terms;
 
     public String getFirstName() {

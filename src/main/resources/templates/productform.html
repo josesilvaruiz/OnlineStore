@@ -10,36 +10,60 @@
 	<div th:insert="fragments/menu_header"></div>
 <div class="container">	                  
      <form th:if="${product.id == null}" th:action="@{/products}" th:object="${product}" method="post">
+   	<p class="error-message" th:if="${#fields.hasGlobalErrors()}"  th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation error</p>
+    <h1 class="text-secondary border border-success border-top-0 border-left-0 border-right-0">Add Products</h1>
      
-    <h1 class="text-secondary border border-success border-top-0 border-left-0 border-right-0">Add Product</h1>
+     <div class="form-group" th:classappend="${#fields.hasErrors('name')}? 'has-error':''"></div>
+    <label for="name" class="control-label">Name: </label>   
+    <input type="text" class="form-control" id="Name"  th:field="*{name}" placeholder="Product name">
+    <p class="error-message" th:each="error: ${#fields.errors('name')}" th:text="${error}">Validation error</p>
     
-    <label >Name: </label>   
-    <input type="text" class="form-control" th:field="*{name}" placeholder="Product name">
     <label >Price: </label>
+    <div class="form-group" th:classappend="${#fields.hasErrors('price')}? 'has-error':''">
     <input type="number" class="form-control" th:field="*{price}" placeholder="Product price" >
+    <p class="error-message" th:each="error : ${#fields.errors('price')}" th:text="${error}">Validation error</p>
+    </div>    
+    <div class="form-group" th:classappend="${#fields.hasErrors('barcode')}? 'has-error':''">
     <label >Barcode: </label>
     <input type="text" class="form-control" th:field="*{barcode}" placeholder="Barcode" >
+    <p class="error-message" th:each="error : ${#fields.errors('barcode')}" th:text="${error}">Validation error</p>
+    </div>
+    <div class="form-group" th:classappend="${#fields.hasErrors('stock')}? 'has-error':''">
     <label >Stock: </label>
     <input type="number" class="form-control" th:field="*{stock}" placeholder="Stock" >
+    <p class="error-message" th:each="error : ${#fields.errors('stock')}" th:text="${error}">Validation error</p>
+     </div>
     <br>
     <div class="form-group">
-                    <button  type="submit" class="btn btn-success">Add new article </button>                  
-                </div>
+       <button  type="submit" class="btn btn-success">Add new article </button>                  
+   </div>
       
     </form>
      <form th:if="${product.id != null}" th:action="@{/productform/} + ${product.id}" th:object="${product}" method="post">
      
-     <h1 class="text-secondary border border-success border-top-0 border-left-0 border-right-0">Editing Product</h1>
-     
-    <label >Name: </label>   
-    <input type="text" class="form-control" th:field="*{name}" placeholder="Product name">
+     <h1 class="text-secondary border border-success border-top-0 border-left-0 border-right-0">Editing Product</h1>     
+    	<p class="error-message" th:if="${#fields.hasGlobalErrors()}"  th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation error</p>
+     <div class="form-group" th:classappend="${#fields.hasErrors('name')}? 'has-error':''"></div>
+    <label for="name" class="control-label">Name: </label>   
+    <input type="text" class="form-control" id="Name"  th:field="*{name}" placeholder="Product name">
+    <p class="error-message" th:each="error: ${#fields.errors('name')}" th:text="${error}">Validation error</p>
+    
     <label >Price: </label>
+    <div class="form-group" th:classappend="${#fields.hasErrors('price')}? 'has-error':''">
     <input type="number" class="form-control" th:field="*{price}" placeholder="Product price" >
+    <p class="error-message" th:each="error : ${#fields.errors('price')}" th:text="${error}">Validation error</p>
+    </div>    
+    <div class="form-group" th:classappend="${#fields.hasErrors('barcode')}? 'has-error':''">
     <label >Barcode: </label>
     <input type="text" class="form-control" th:field="*{barcode}" placeholder="Barcode" >
+    <p class="error-message" th:each="error : ${#fields.errors('barcode')}" th:text="${error}">Validation error</p>
+    </div>
+    <div class="form-group" th:classappend="${#fields.hasErrors('stock')}? 'has-error':''">
     <label >Stock: </label>
     <input type="number" class="form-control" th:field="*{stock}" placeholder="Stock" >
-    <input type="hidden" id="id" th:field="*{id}">
+    <p class="error-message" th:each="error : ${#fields.errors('stock')}" th:text="${error}">Validation error</p>
+     </div>
+     
     <br>
     <div class="form-group">
                     <button type="submit" class="btn btn-success">Update article </button>

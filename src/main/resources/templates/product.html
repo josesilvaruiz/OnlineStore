@@ -9,21 +9,21 @@
 
 	<div th:insert="fragments/menu_header"></div>
 	
-<div class="container">	      
+<div class="container" style="margin-bottom: 100px;">	      
         
         <h1 class="text-secondary border border-success border-top-0 border-left-0 border-right-0">
-         List Product</h1>
-		<p><a th:href="@{/productform}" class="btn btn-success btn-xs">Create product</a></p>
+         Catalog management</h1>
+		<p><a th:href="@{/productform}" class="btn btn-success btn-xs">Add products</a></p>
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>id</th>
-					<th>name</th>
-					<th>price</th>				
-					<th>barcode</th>
-					<th>stock</th>
-					<th>edit</th>
-					<th>delete</th>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Price</th>				
+					<th>Barcode</th>
+					<th>Stock</th>
+					<th></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -33,8 +33,8 @@
 					<td th:text="${product.price}"></td>
 					<td th:text="${product.barcode}"></td>
 					<td th:text="${product.stock}"></td>
-			  		<td><a class="btn btn-primary btn-xs" th:href="@{/productform/} + ${product.id}" th:text="'edit'"></a></td>
-					<td><a class="btn btn-danger btn-xs" th:href="@{/delete/} + ${product.id}" th:text="'delete'" onclick="return confirm('Are you sure you want to delete it?');"></a></td>
+			  		<td><a class="btn btn-primary btn-xs" th:href="@{/productform/} + ${product.id}" th:text="'Edit'"></a></td>
+					<td><a class="btn btn-danger btn-xs" th:href="@{/delete/} + ${product.id}" th:text="'Delete'" onclick="return confirm('Are you sure you want to delete it?');"></a></td>
 					
 				</tr>
 			</tbody>

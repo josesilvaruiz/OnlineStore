@@ -46,7 +46,7 @@ public class CartController {
 
 		model.addAttribute("products", productService.findAll());
 		model.addAttribute("cartItemDto", new CartItemDto());
-		return "/home";
+		return "home";
 	}
 
 // TODO USAR HASHMAP EN VEZ DE LIST

@@ -47,13 +47,13 @@
                 </div>
                 <div class="form-group" th:classappend="${#fields.hasErrors('terms')}? 'has-error':''">
                     <input id="terms" type="checkbox" th:field="*{terms}" />
-                    <label class="control-label" for="terms"> I'm agree with all terms and conditions.  </label>
+                    <label class="control-label" for="terms"> I agree with all terms and conditions.  </label>
                     <p class="error-message" th:each="error : ${#fields.errors('terms')}" th:text="${error}">Validation error
                     </p>
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success">Register</button>
+                    <button id="registerbutton" type="submit" class="btn btn-success">Register</button>
                     <span>Already registered? <a href="/" th:href="@{/login}">Login here</a></span>
                 </div>
             </form>

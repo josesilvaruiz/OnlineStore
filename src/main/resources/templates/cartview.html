@@ -11,43 +11,39 @@
 
 <div class="container">	      
         
-        <h1 class="text-secondary border border-success border-top-0 border-left-0 border-right-0">
-         Cart Products</h1>
+        <h1 class="text-secondary border border-success border-top-0 border-left-0 border-right-0"> Cart Products</h1>
 
         <h4 th:if="${cartitems == null }">Your OnlineStore basket is empty.</h4> 
 		<table class="table table-striped" th:if="${cartitems != null }">
 			<thead>
-				<tr>
-					
+				<tr>				
 					<th>Name</th>
 					<th>Quantity</th>			
 					<th>Price</th>
-					<th>Add</th>
-					<th>Remove</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="cartitem : ${cartitems}">
 					<td th:text="${cartitem.product.name}"></td>
 					<td th:text="${cartitem.quantity}"></td>	
-					<td th:text="${cartitem.calculateRow()}"></td>
-					<td> <button class="btn-primary">+</button></td>
-					<td> <button class="btn-danger">-</button></td>		
+					<td th:text="${cartitem.calculateRow()}"></td>	
 				</tr> 
 			</tbody>
 			<tfoot>
-			<tr>
-			<td th:if="${total != null }" colSpan="4" th:text="|Total price: ${total} $|"> </td>
+
+			<td th:if="${total != null }" th:text="|Total price: ${total} $|"> </td>
 			
 				<form th:action="@{/cartcheckout}" th:object="${orderItem}" method="post">
     			<div class="form-group">
-    			<td><button type="submit" class="btn btn-success">Checkout</button></td>
-                    
-                </div>
-      </form> 
-		                    
-			
-			</tr>
+    			<td><button type="submit" class="btn btn-success">Checkout</button></form> </td>
+    			
+    			
+    			
+    			<form th:action="@{/emptycart}" method="post">
+    			<div class="form-group">
+                 <td> <button type="submit" class="btn btn-danger">Empty</button></form></td>  
+                </div>   
+				
 			</tfoot>
 		</table>
     </div>

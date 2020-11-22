@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class CartItem implements Serializable {
@@ -23,8 +24,9 @@ public class CartItem implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id")
 	private Product product;
-	@Min(value = 1, message = "Must be 0 mín value")
-	private Integer quantity;
+	@NotNull(message = "Empty field")
+	@Min(value = 1, message = "Must be 1 mín value")
+	private int quantity;
 		
 	public Long getId() {
 		return id;

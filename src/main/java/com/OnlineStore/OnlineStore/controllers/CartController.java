@@ -2,6 +2,9 @@ package com.OnlineStore.OnlineStore.controllers;
 
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -71,7 +74,7 @@ public class CartController {
 
 	@PostMapping("/cartcheckout")
 	public String cartcheckout() {
-		
+	  
 		User user = userService.getAuthUser();
 		List<CartItem> cartitems = user.getCart().getCartItem();
 		Order order = new Order();
@@ -94,11 +97,16 @@ public class CartController {
 		return "redirect:/orders";
 
 	}
-
+	@PostMapping("emptycart")
+	public String emptycart () {
+		User user = userService.getAuthUser();
+		cartService.delete(user.getCart().getId());
+		return "redirect:/cartview";	
+	}
 	@PostMapping("/addtocart")
 	public String addtocart(@ModelAttribute("cartItemDto") CartItemDto cartItemDto, HttpServletRequest request, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {			
-	        return "addtocart";  
+	        return "redirect:/home";  
        }          
 		Product p = productService.findById(cartItemDto.getProductId());
 		CartItem cartItem = new CartItem();

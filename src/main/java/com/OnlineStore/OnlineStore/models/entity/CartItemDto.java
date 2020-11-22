@@ -1,12 +1,15 @@
 package com.OnlineStore.OnlineStore.models.entity;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 public class CartItemDto  {
 
 		private Long productId;
+		
+		@NotNull(message = "Empty field")
 		@Min(value = 1, message = "Must be 0 mín value")
-		private Integer quantity;
+		private int quantity;
 
 		public Long getProductId() {
 			return productId;

@@ -15,3 +15,6 @@ footer {
 .error-message {
 	color:rgb(255,0,0);
 }
+#registerbutton {
+	margin-bottom:100px;
+}

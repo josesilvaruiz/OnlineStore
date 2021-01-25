@@ -15,13 +15,19 @@
 			class="text-secondary border border-success border-top-0 border-left-0 border-right-0">
 			Buy Products</h1>
 		<div th:if="${param.success}">
-                <div class="alert alert-success">Added to cart successfully</div>
-            </div>
+			<div class="alert alert-success">Added to cart successfully</div>
+		</div>
 		<div class="row">
-			<div class="col-lg-3 col-md-3 mb-2" th:each="product : ${products}">
-				<form th:action="@{/addtocart}" onSubmit="return validate()" th:object="${cartItemDto}" method="post">
+			<div class="col-lg-3 col-md-3 mb-2"
+				th:each="product, iStat : ${productPage.content}"
+				th:alt-title="${iStat.even}? 'even' : 'odd'">
+				<form th:action="@{/addtocart}" onSubmit="return validate()"
+					th:object="${cartItemDto}" method="post">
 					<div class="card h-100">
-						<a><img class="card-img-top"
+						<a><td><img th:if="${product.image} != null"
+								th:src="@{'/uploads/' + ${product.image}}"
+								style="height: 145px; width: 253px;" /></td> <img
+							th:if="${product.image} == null" class="card-img-top"
 							src="http://placehold.it/700x400" alt=""></a>
 						<div class="card-body">
 							<input type="hidden" id="productId" name="productId"
@@ -32,34 +38,63 @@
 							<h5>
 								$<span th:text="${product.price}"></span>
 							</h5>
-							  <div class="form-group" th:classappend="${#fields.hasErrors('quantity')}? 'has-error':''">
-    <input type="number"  style="width: 70px; margin-left: 10px;"  id="quantity" class="form-control"  th:field="*{quantity}" min="1" >
-    <p class="error-message" th:each="error : ${#fields.errors('quantity')}" th:text="${error}">Validation error</p>
-    </div>
+							<div class="form-group"
+								th:classappend="${#fields.hasErrors('quantity')}? 'has-error':''">
+								<input type="number" style="width: 70px; margin-left: 10px;"
+									id="quantity" class="form-control" th:field="*{quantity}"
+									min="1">
+								<p class="error-message"
+									th:each="error : ${#fields.errors('quantity')}"
+									th:text="${error}">Validation error</p>
+							</div>
 						</div>
 						<div class="card-footer">
-							<button type="submit" id="addtocartbutton" class="btn-addtocart btn btn-success" >Add to
-								cart</button>
-								
-								<script>
-								function validate() {
-									var inputquantity = document.getElementById("quantity");
-									if(inputquantity.value == ""){
-										inputquantity.value = 0;
-										return false;
-									}else {
-										return true;
-									}									
-								}
-								</script>
+							<button type="submit" id="addtocartbutton"
+								class="btn-addtocart btn btn-success">Add to cart</button>
+
 						</div>
 					</div>
 				</form>
 			</div>
 
 		</div>
+		<nav aria-label="Page navigation example"
+			th:if="${productPage.totalPages > 0}">
+			<ul class="pagination">
+				<li class="page-item" th:if="${currentPage}!=1"><a
+					class="page-link" th:href="@{/(size=${productPage.size},  page=1)}">First</a></li>
+				<li class="page-item" th:if="${currentPage}!=1"><a
+					class="page-link"
+					th:href="@{/(size=${productPage.size},  page=${currentPage-1})}">Previous</a></li>
+				<li class="page-item" th:each="pageNumber : ${pageNumbers}"><a
+					class="page-link" th:text=${pageNumber}
+					th:href="@{/(size=${productPage.size}, page=${pageNumber})}"></a></li>
+				<li th:if="${currentPage}!=${productPage.totalPages}"
+					class="page-item"><a class="page-link"
+					th:href="@{/(size=${productPage.size},  page=${currentPage+1})}">Next</a></li>
+				<li class="page-item"
+					th:if="${currentPage}!=${productPage.totalPages}"><a
+					class="page-link"
+					th:href="@{/(size=${productPage.size},  page=${productPage.totalPages})}">Last</a></li>
+			</ul>
+		</nav>
+		<p class="error-message" th:if="${message} != null"
+			th:text="|El stock de ${message.name} es ${message.stock}|"></p>
 	</div>
 
+
 	<div th:insert="fragments/footer"></div>
+	<script>
+		function validate() {
+			var inputquantity = document.getElementById("quantity");
+			if (inputquantity.value == "") {
+				inputquantity.value = 0;
+				return false;
+			} else {
+				return true;
+			}
+		}
+	</script>
+
 </body>
 </html>

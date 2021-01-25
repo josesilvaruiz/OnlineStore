@@ -30,6 +30,8 @@ public class Product implements Serializable {
 	private String barcode;
 	 @Min(value = 1, message = "Must be 1 mín value")
 	private int stock;
+	 
+	 private String image;
 	
 	public Long getId() {
 		return id;
@@ -69,6 +71,14 @@ public class Product implements Serializable {
 
 	public void setPrice(float price) {
 		this.price = price;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 

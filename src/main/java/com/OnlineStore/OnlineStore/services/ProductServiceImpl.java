@@ -5,10 +5,13 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.OnlineStore.OnlineStore.models.entity.Product;
 import com.OnlineStore.OnlineStore.repository.ProductRepository;
+
 @Service
 public class ProductServiceImpl implements IProductService{
 	
@@ -19,6 +22,11 @@ public class ProductServiceImpl implements IProductService{
 	@Transactional
 	public List<Product> findAll () {
 		return (List<Product>) productRepository.findAll();
+	}
+	
+	@Override
+	public Page<Product> findAll(Pageable pageable) {
+		return productRepository.findAll(pageable);
 	}
 
 	@Override

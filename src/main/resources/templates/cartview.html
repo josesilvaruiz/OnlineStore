@@ -7,49 +7,60 @@
 
 <body>
 
-<div th:insert="fragments/menu_header"></div>
+	<div th:insert="fragments/menu_header"></div>
 
-<div class="container">	      
-        
-        <h1 class="text-secondary border border-success border-top-0 border-left-0 border-right-0"> Cart Products</h1>
+	<div class="container">
 
-        <h4 th:if="${cartitems == null }">Your OnlineStore basket is empty.</h4> 
+		<h1
+			class="text-secondary border border-success border-top-0 border-left-0 border-right-0">
+			Cart Products</h1>
+
+		<h4 th:if="${cartitems == null }">Your OnlineStore basket is
+			empty.</h4>
 		<table class="table table-striped" th:if="${cartitems != null }">
 			<thead>
-				<tr>				
+				<tr>
 					<th>Name</th>
-					<th>Quantity</th>			
+					<th>Quantity</th>
 					<th>Price</th>
 				</tr>
 			</thead>
 			<tbody>
+			<form th:action="@{/cartcheckout}" th:object="${cartItemDto}"
+					method="post">
 				<tr th:each="cartitem : ${cartitems}">
 					<td th:text="${cartitem.product.name}"></td>
-					<td th:text="${cartitem.quantity}"></td>	
-					<td th:text="${cartitem.calculateRow()}"></td>	
-				</tr> 
+   <td ><input  id="cartitem.quantity" name="quantity" th:value="${cartitem.quantity}" > </td>
+					<td th:text="${cartitem.calculateRow()}"></td>
+				</tr>
 			</tbody>
 			<tfoot>
 
-			<td th:if="${total != null }" th:text="|Total price: ${total} $|"> </td>
-			
-				<form th:action="@{/cartcheckout}" th:object="${orderItem}" method="post">
-    			<div class="form-group">
-    			<td><button type="submit" class="btn btn-success">Checkout</button></form> </td>
-    			
-    			
-    			
-    			<form th:action="@{/emptycart}" method="post">
-    			<div class="form-group">
-                 <td> <button type="submit" class="btn btn-danger">Empty</button></form></td>  
-                </div>   
+				<td th:if="${total != null }" th:text="|Total price: ${total} $|">
+				</td>
+
 				
+					<div class="form-group">
+						<td><button type="submit" class="btn btn-success">Checkout</button>
+				</form>
+				</td>
+
+				<form th:action="@{/emptycart}" method="post">
+					<div class="form-group">
+						<td>
+							<button type="submit" class="btn btn-danger">Empty</button>
+				</form>
+				</td>
+				</div>
+
 			</tfoot>
 		</table>
-    </div>
-                                
-	<div th:insert="fragments/footer" ></div>
+		<p th:each="msg : ${message}" class="error-message"
+			th:if="${message} != null" th:text="|El stock de ${msg.name} es ${msg.stock}|"></p>
+	</div>
 
-	                               
-	</body>
+	<div th:insert="fragments/footer"></div>
+
+
+</body>
 </html>

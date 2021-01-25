@@ -17,29 +17,36 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>Id</th>
+					<th>Image</th>
 					<th>Name</th>
 					<th>Price</th>				
 					<th>Barcode</th>
 					<th>Stock</th>
-					<th></th>
-					<th></th>
+
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="product : ${products}">
-					<td th:text="${product.id}"></td>
+				<tr th:each="product, iStat : ${productPage.content}"
+				th:alt-title="${iStat.even}? 'even' : 'odd'">
+					<td><img th:src="@{'/uploads/' + ${product.image}}" style="width:60px;"/></td>
 					<td th:text="${product.name}"></td>
 					<td th:text="${product.price}"></td>
 					<td th:text="${product.barcode}"></td>
 					<td th:text="${product.stock}"></td>
 			  		<td><a class="btn btn-primary btn-xs" th:href="@{/productform/} + ${product.id}" th:text="'Edit'"></a></td>
-					<td><a class="btn btn-danger btn-xs" th:href="@{/delete/} + ${product.id}" th:text="'Delete'" onclick="return confirm('Are you sure you want to delete it?');"></a></td>
-					
+					<td><a class="btn btn-danger btn-xs" th:href="@{/delete/} + ${product.id}" th:text="'Delete'" onclick="return confirm('Are you sure you want to delete it?');"></a></td>				
 				</tr>
 			</tbody>
 
 		</table>
+		<nav aria-label="Page navigation example" th:if="${productPage.totalPages > 0}">
+  <ul class="pagination" >
+    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item" th:each="pageNumber : ${pageNumbers}"><a class="page-link" th:text=${pageNumber} th:href="@{/product(size=${productPage.size}, page=${pageNumber})}"></a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  </ul>
+</nav>
+		
     </div>
                                 
 	<div th:insert="fragments/footer"></div>

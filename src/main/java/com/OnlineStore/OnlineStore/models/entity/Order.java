@@ -18,7 +18,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;	
+import javax.persistence.TemporalType;
+
 @Entity
 @Table(name="orders")
 public class Order implements Serializable {
@@ -26,7 +27,7 @@ public class Order implements Serializable {
 		private static final long serialVersionUID = 1L;
 
 		@Id
-	    @GeneratedValue(strategy = GenerationType.AUTO)
+		@GeneratedValue(strategy = GenerationType.AUTO)	
 	    private Long id;
 		
 		@Column(name="create_at")

@@ -7,6 +7,8 @@ import com.OnlineStore.OnlineStore.models.entity.User;
 
 
 public interface IUserService extends UserDetailsService {
+	
+	public User findById(Long id);
 
     User findByEmail(String email);
 
